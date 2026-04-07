@@ -8,25 +8,25 @@ Sistema de automatización OSINT desarrollado con FastAPI, Docker, n8n y Telegra
 
 * Automatización de consultas OSINT mediante Telegram
 * Integración con múltiples fuentes públicas
-* Scraping de información (Playwright + BeautifulSoup)
-* Microservicio en FastAPI
-* Orquestación con n8n
-* Despliegue local con Docker
+* Scraping de información con Playwright y BeautifulSoup
+* Backend desarrollado en FastAPI
+* Orquestación de flujos con n8n
+* Despliegue local mediante Docker
 
 ---
 
 ## 🌎 Alcance
 
-Este proyecto está enfocado principalmente en fuentes públicas de **Colombia** (SIMIT, RUES, entre otras).
+Este proyecto está enfocado principalmente en fuentes públicas de Colombia (SIMIT, RUES, entre otras).
 
-Toda la información consultada proviene de **datos públicos (OSINT)**.
+Toda la información utilizada proviene de fuentes abiertas (OSINT).
 
 ---
 
 ## 🧱 Arquitectura
 
 * **n8n** → Orquestación de flujos
-* **FastAPI** → Backend (microservicio)
+* **FastAPI** → Microservicio backend
 * **Docker Compose** → Infraestructura
 * **Telegram Bot** → Interfaz de usuario
 
@@ -51,20 +51,21 @@ Toda la información consultada proviene de **datos públicos (OSINT)**.
 
 * Docker Desktop
 * Git
-* ngrok (opcional para uso en tiempo real)
+* Bot de Telegram (BotFather)
+* Dominio público o túnel (ngrok, Cloudflare Tunnel, etc.)
 
 ---
 
-## ▶️ Ejecución
-
-Clonar el repositorio:
+## 📥 Clonar repositorio
 
 ```
 git clone https://github.com/danielsehuanes07/NullTrace-Bot.git
 cd NullTrace-Bot
 ```
 
-Levantar servicios:
+---
+
+## ▶️ Ejecutar proyecto
 
 ```
 docker compose up --build
@@ -74,28 +75,40 @@ docker compose up --build
 
 ## 🌐 Servicios
 
-* n8n: http://localhost:5679
-* API: http://localhost:5000
+* n8n → http://localhost:5679
+* API → http://localhost:5000
 
 ---
 
 ## 🔄 Importar workflow en n8n
 
-1. Accede a: http://localhost:5679
-2. Importa el archivo:
+1. Abre n8n en:
 
-```
-n8n/workflow.json
-```
+   ```
+   http://localhost:5679
+   ```
+
+2. En la interfaz:
+
+   * Click en **Import**
+   * Selecciona:
+
+   ```
+   n8n/workflow.json
+   ```
+
+3. Verifica los nodos importados
+
+4. Configura las credenciales necesarias (Telegram, APIs, etc.)
+
+5. Ejecuta el workflow manualmente para validar funcionamiento
 
 ---
 
-## 🤖 Configuración de Telegram (OBLIGATORIO)
+## 🤖 Configuración de Telegram
 
-Para que el bot funcione:
-
-1. Crear un bot en Telegram usando **@BotFather**
-2. Obtener el token del bot
+1. Crear bot en Telegram con **@BotFather**
+2. Copiar el token generado
 3. En n8n:
 
    * Crear credenciales de Telegram
@@ -103,17 +116,17 @@ Para que el bot funcione:
 
 ---
 
-## 🌍 Uso con ngrok (IMPORTANTE)
+## 🌍 Configuración de dominio (IMPORTANTE)
 
-Para recibir mensajes desde Telegram en local:
+Para que Telegram funcione correctamente, necesitas exponer n8n a internet.
 
-1. Ejecutar:
+Ejemplo con ngrok:
 
 ```
 ngrok http 5679
 ```
 
-2. Copiar la URL generada, por ejemplo:
+Esto generará una URL pública:
 
 ```
 https://xxxx.ngrok-free.app
@@ -123,7 +136,7 @@ https://xxxx.ngrok-free.app
 
 ## ⚠️ Configuración en docker-compose.yml
 
-Debes editar el archivo:
+Debes editar:
 
 ```
 docker-compose.yml
@@ -136,18 +149,25 @@ WEBHOOK_URL=https://your-domain.com
 N8N_HOST=your-domain.com
 ```
 
-Por tu URL de ngrok:
+Por tu dominio real:
 
 ```
-WEBHOOK_URL=https://tu-url-ngrok.ngrok-free.app
-N8N_HOST=tu-url-ngrok.ngrok-free.app
+WEBHOOK_URL=https://tu-dominio-publico
+N8N_HOST=tu-dominio-publico
 ```
+
+Puedes usar:
+
+* ngrok
+* Cloudflare Tunnel
+* VPS con dominio propio
+* cualquier dominio accesible públicamente
 
 ---
 
-## 🧪 Pruebas del microservicio
+## 🧪 Pruebas
 
-Puedes probar directamente:
+Ejemplo de prueba del microservicio:
 
 ```
 curl http://localhost:5000/consultar/spam/3001234567
@@ -157,7 +177,9 @@ curl http://localhost:5000/consultar/spam/3001234567
 
 ## 🔐 API externas (opcional)
 
-El proyecto incluye integración con servicios externos como NumVerify:
+El proyecto incluye integraciones con APIs externas.
+
+Ejemplo:
 
 ```
 YOUR_API_KEY
@@ -169,20 +191,35 @@ Debes reemplazarlo por tu propia clave si deseas usar esa funcionalidad.
 
 ## ⚠️ Nota importante
 
-* No se incluyen credenciales reales
-* No se incluyen tokens
-* No se incluyen API keys
-* El usuario debe configurar sus propios servicios
+Este proyecto NO incluye:
+
+* tokens reales
+* API keys reales
+* credenciales
+* configuraciones personales
 
 ---
 
-## 🧠 Funcionamiento sin API keys
+## 🧠 Funcionamiento sin APIs externas
 
-El sistema puede funcionar parcialmente sin APIs externas, ya que utiliza:
+El sistema puede seguir funcionando parcialmente gracias a:
 
 * scraping web
 * fuentes OSINT públicas
 * lógica propia del backend
+
+---
+
+## 🛠️ Personalización
+
+El proyecto es modular y puede ampliarse fácilmente con nuevas fuentes OSINT, APIs y flujos en n8n.:
+
+* agregar nuevas fuentes OSINT
+* integrar nuevas APIs
+* crear nuevos flujos en n8n
+* mejorar el backend en FastAPI
+
+Esto lo convierte en una base flexible para proyectos de automatización en ciberseguridad y OSINT.
 
 ---
 
