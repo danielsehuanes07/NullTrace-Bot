@@ -1,0 +1,886 @@
+{
+  "name": "NullTrace pruebas2",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a6d06fe4-1a54-4fd6-90b3-60df21b2ea06",
+      "name": "Telegram Trigger",
+      "webhookId": "46a6fe36-3f62-429b-a4a5-dd967d58c776"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "correo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "060becbf-ab1e-473e-ac60-657dc9f58481"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "correo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "61b1f5ce-e8a6-4d0d-aa37-c9bb5c62d289",
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "telefono",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "telefono"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "5d05ba7c-522d-486b-98f9-80b3dc757d5e",
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "cedula",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "cedula"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "da4973d6-67a9-4239-8225-19b1536a1ed3",
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "desconocido",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "desconocido"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d9fc3767-13a8-4aa6-812e-061cd2645fc9",
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "start"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "123047e7-d7c5-4599-9714-62ea2bb10ffa",
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "negocio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "negocio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "07a53eae-5dc9-425a-9f01-f2b5716700f9",
+                    "leftValue": "={{ $json.tipo }}",
+                    "rightValue": "placa",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "placa"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        -48
+      ],
+      "id": "6b7b62b9-2775-4752-bc46-aa05c8f8ba46",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "=📞 *NullTrace — Consulta de Teléfono*\n\n📱 *Número:* {{ $('Consulta telefono').item.json.number }}\n\n🌍 *País:* {{ $('Consulta telefono').item.json.country_name }} {{ $('Consulta telefono').item.json.valid ? '📡 *Operador:* ' + $('Consulta telefono').item.json.carrier + '\\n📶 *Tipo de línea:* ' + $('Consulta telefono').item.json.line_type : 'Número especial o empresarial — sin datos de operador' }}\n\n🔍 *Reportes de Spam — Telguarder*\n🔎 *Búsquedas totales:* {{ $json.valores[0] }}\n{{ $json.valores[1] === '0' ? '✅ Sin denuncias registradas' : '🚨 *NÚMERO EN LISTA ROJA* — ' + $json.valores[1] + ' denuncia(s) reportada(s)' }}\n\n📅 *Última búsqueda:* {{ $json.valores[2] }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1616,
+        -256
+      ],
+      "id": "a0c7f836-4d89-4298-a04b-e496c36f7774",
+      "name": "Send a text message",
+      "webhookId": "e049b88b-e991-4216-9275-3a87af9de8e1"
+    },
+    {
+      "parameters": {
+        "url": "=http://172.18.0.1:5000/consultar/email/{{ $('Expresiones regulares').first().json.texto }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        720,
+        -544
+      ],
+      "id": "4424936f-c4c7-41d9-b8fd-92ec8de7626f",
+      "name": "Consulta Correo"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "=⚠️ *NullTrace — Formato no reconocido*\n\nNo reconocí el dato que enviaste. Puedo consultar:\n\n📞 *Teléfono* — Envía un número colombiano de 10 dígitos\n_Ejemplo: 3001234567_\n\n📧 *Correo* — Envía una dirección de correo electrónico\n_Ejemplo: usuario@gmail.com_\n\n🪪 *Cédula* — Envía solo el número de cédula\n_Ejemplo: 1234567890_\n\n🏢 *Negocio* — Usa el comando /negocio\n_Ejemplo: /negocio licor club_",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        208
+      ],
+      "id": "45590539-c1c2-40cc-8ff7-fb392de78a50",
+      "name": "Respuesta a desconocido",
+      "webhookId": "be7e152f-4ad6-40e7-a011-26d358d0cf1a"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "=👁️ *Bienvenido a NullTrace*\n\nSoy un bot de inteligencia OSINT. Puedo consultar información pública sobre:\n\n📞 *Teléfono* — Operador, país y tipo de línea\n_Ejemplo: 3001234567_\n\n📧 *Correo* — Filtraciones y brechas de seguridad\n_Ejemplo: usuario@gmail.com_\n\n🪪 *Cédula* — Informacion Personal\n_Ejemplo: 1234567890_\n\n🏢 *Negocio* — Empresas registradas en Cámara de Comercio\n_Ejemplo: /negocio licor club_\n\nSimplemente envíame el dato y lo consulto.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        416
+      ],
+      "id": "41dee07f-f368-40c6-8b31-8b83202095bf",
+      "name": "Mensaje start",
+      "webhookId": "34855784-9c84-4d65-8760-2231f1af6e9d"
+    },
+    {
+      "parameters": {
+        "method": "=GET",
+        "url": "=http://172.18.0.1:5000/consultar/simit/{{ $('Expresiones regulares').item.json.texto }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1424,
+        0
+      ],
+      "id": "c78ac769-8e1d-4bbc-a230-c2cbc127fa1e",
+      "name": "Consulta simit",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "={{ $json.mensaje }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2000,
+        0
+      ],
+      "id": "299fa1cf-fa1e-4c78-8df5-e1ddd8850a6e",
+      "name": "Send a text message1",
+      "webhookId": "1ce74237-d263-4fa5-9e7d-d5184d530584"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=🔍 *NullTrace* está consultando la informacion... ⏳ Por favor espera un momento.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        0
+      ],
+      "id": "f55284c2-7bbd-46ac-aae2-44ecd1b84b62",
+      "name": "Telegram espera",
+      "webhookId": "a335cc4d-6784-437b-8220-de64064e8a64"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=🔍 *NullTrace* está consultando la informacion... ⏳ Por favor espera un momento.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        848,
+        -192
+      ],
+      "id": "b5373c75-3cf5-4b8d-bae6-01e3a3f4fc7a",
+      "name": "Telegram espera1",
+      "webhookId": "ac0a2a1b-fc6f-4311-9ad5-dfb25d56ed57"
+    },
+    {
+      "parameters": {
+        "url": "=http://172.18.0.1:5000/consultar/rues/{{ $('Expresiones regulares').item.json.texto }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1168,
+        0
+      ],
+      "id": "8467ca53-4409-4b95-9298-dc96573c7b93",
+      "name": "ConsultaRues"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "=🔍 *NullTrace* está consultando la informacion... ⏳ Por favor espera un momento.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        608
+      ],
+      "id": "fdf405a6-2c5f-4522-b0fc-c781950bcc2a",
+      "name": "Telegram espera2",
+      "webhookId": "608d4cd5-3cb3-437e-9b8c-ff07880eef94"
+    },
+    {
+      "parameters": {
+        "url": "=http://172.18.0.1:5000/consultar/negocio/{{ $('Expresiones regulares').item.json.texto }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1248,
+        624
+      ],
+      "id": "e6a77d70-1e0b-4c43-8882-27c8d403106d",
+      "name": "Consulta Negocio"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst chatId = $('Expresiones regulares').first().json.chatId;\n\nlet mensaje = '🏢 *NullTrace — Búsqueda de Negocio*\\n\\n';\nmensaje += `🔍 *Búsqueda:* ${data.nombre}\\n\\n`;\n\nif (data.total <= 1) {\n  mensaje += '❌ No se encontraron negocios con ese nombre.';\n} else {\n  const empresas = data.resultados.filter(r => \n    !r.startsWith('Ver información') && \n    !r.startsWith('Cerca de') &&\n    r.length > 50\n  );\n\n  mensaje += `📋 *${empresas.length} negocio(s) encontrado(s):*\\n\\n`;\n\n  empresas.forEach((empresa, i) => {\n    const lineas = empresa.split('\\n').filter(l => l.trim());\n    const nombre = lineas[0];\n    \n    const camaraMatch = empresa.match(/Cámara de Comercio\\s*\\n\\s*(.+)/);\n    const estadoMatch = empresa.match(/Estado\\s*\\n\\s*(.+)/);\n    const matriculaMatch = empresa.match(/Número de Matrícula\\s*\\n\\s*(.+)/);\n    \n    const camara = camaraMatch ? camaraMatch[1].trim() : '';\n    const estado = estadoMatch ? estadoMatch[1].trim() : '';\n    const matricula = matriculaMatch ? matriculaMatch[1].trim() : '';\n\n    mensaje += `*${i+1}. ${nombre}*\\n`;\n    mensaje += `📍 *Ciudad:* ${camara}\\n`;\n    mensaje += `🔢 *Matrícula:* ${matricula}\\n`;\n    mensaje += `📌 *Estado:* ${estado}\\n\\n`;\n  });\n}\n\nreturn [{ json: { mensaje, chatId } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        608
+      ],
+      "id": "e768ee45-c5be-4cb3-b06e-745e0948aea8",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.mensaje }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2128,
+        608
+      ],
+      "id": "84092a76-e231-410c-8955-c80aeec6ef93",
+      "name": "Send a text message2",
+      "webhookId": "21838f86-b643-4c8e-8945-be1c3a2e2283"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "=🔍 *NullTrace* está consultando la informacion... ⏳ Por favor espera un momento.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        752,
+        832
+      ],
+      "id": "a3253cfd-fa87-44da-b175-f4adcd626cf4",
+      "name": "Telegram espera3",
+      "webhookId": "9ccea15b-1e9a-4ed9-9bd7-2a0fd82923be"
+    },
+    {
+      "parameters": {
+        "method": "=GET",
+        "url": "=http://172.18.0.1:5000/consultar/simit/{{ $('Expresiones regulares').item.json.texto }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1136,
+        880
+      ],
+      "id": "32fe9730-d80b-4058-b8cb-0e17b478c809",
+      "name": "Consulta simit1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst chatId = $('Expresiones regulares').first().json.chatId;\nconst placa = $('Expresiones regulares').first().json.texto;\n\nconst simitFallo = !data || data.error || data.totalGeneral === undefined;\n\nif (simitFallo) {\n  return [{ json: { mensaje: \"👁️ *NULLTRACE // PLACA*\\n━━━━━━━━━━━━━━━━━━\\n\\n🎯 *OBJETIVO:* `\" + placa + \"`\\n\\n🚦 *SIMIT — ESTADO DE CUENTA*\\n─────────────────────\\n⚠️ *SIMIT:* Portal no disponible en este momento.\\n🔄 Intenta de nuevo en unos minutos.\\n\\n━━━━━━━━━━━━━━━━━━\\n🔍 _NullTrace OSINT Bot_\", chatId } }];\n}\n\nconst estaPazSalvo = data.pazSalvo || data.totalGeneral === 0;\nconst multas = Array.isArray(data.multas) ? data.multas : [];\nconst comparendos = Array.isArray(data.comparendos) ? data.comparendos : [];\nconst cursos = Array.isArray(data.cursos) ? data.cursos : [];\nconst acuerdos = Array.isArray(data.acuerdosPago) ? data.acuerdosPago : [];\n\nlet mensaje = \"👁️ *NULLTRACE // PLACA*\\n\";\nmensaje += \"━━━━━━━━━━━━━━━━━━\\n\\n\";\nmensaje += \"🎯 *OBJETIVO:* `\" + placa + \"`\\n\\n\";\nmensaje += \"🚦 *SIMIT — ESTADO DE CUENTA*\\n\";\nmensaje += \"─────────────────────\\n\";\nmensaje += (estaPazSalvo ? \"✅ *PAZ Y SALVO:* SÍ\\n\" : \"❌ *PAZ Y SALVO:* NO\\n\");\nmensaje += \"💰 *TOTAL A PAGAR:* $\" + (data.totalGeneral || 0).toLocaleString() + \"\\n\";\n\nif (comparendos.length === 0 && multas.length === 0) {\n  mensaje += \"\\n✅ Sin comparendos ni multas activas\\n\";\n}\n\nconst formatarRegistro = (r, i, tipo) => {\n  const nombreRaw = r.infractor ? (r.infractor.nombre + ' ' + r.infractor.apellido) : 'N/A';\n  const nombre = nombreRaw.replace(/\\*/g, '').trim();\n  const doc = r.infractor ? r.infractor.numeroDocumento : 'N/A';\n  const placa = r.placa || 'N/A';\n  const fechaComp = r.fechaComparendo || 'N/A';\n  const fechaRes = r.fechaResolucion || 'N/A';\n  const ubicacion = (r.organismoTransito || 'N/A') + ' — ' + (r.departamento || 'N/A');\n  const estadoCartera = r.estadoCartera || 'N/A';\n  const nroCoactivo = r.nroCoactivo || 'N/A';\n  const valor = (r.valor || 0).toLocaleString();\n  const intereses = Math.round(r.valorIntereses || 0).toLocaleString();\n  const total = (r.valorPagar || 0).toLocaleString();\n  const nroComparendo = r.numeroComparendo || 'N/A';\n  const codInfraccion = (r.infracciones && r.infracciones[0]) ? r.infracciones[0].codigoInfraccion : 'N/A';\n  const descInfraccion = (r.infracciones && r.infracciones[0]) ? r.infracciones[0].descripcionInfraccion : 'N/A';\n\n  let bloque = \"\\n\" + tipo + \" *\" + (i+1) + \". #\" + nroComparendo + \"*\\n\";\n  bloque += \"🚗 *PLACA:* \" + placa + \"\\n\";\n  bloque += \"👤 *INFRACTOR:* \" + nombre + \"\\n\";\n  bloque += \"🪪 *DOCUMENTO:* \" + doc + \"\\n\";\n  bloque += \"📅 *FECHA COMPARENDO:* \" + fechaComp + \"\\n\";\n  bloque += \"📋 *FECHA RESOLUCIÓN:* \" + fechaRes + \"\\n\";\n  bloque += \"📍 *UBICACIÓN:* \" + ubicacion + \"\\n\";\n  bloque += \"⚖️ *ESTADO CARTERA:* \" + estadoCartera + \"\\n\";\n  bloque += \"🔴 *NRO COACTIVO:* \" + nroCoactivo + \"\\n\";\n  bloque += \"💵 *MULTA:* $\" + valor + \"\\n\";\n  bloque += \"📈 *INTERESES:* $\" + intereses + \"\\n\";\n  bloque += \"💰 *TOTAL:* $\" + total + \"\\n\";\n  bloque += \"📌 *INFRACCIÓN:* \" + codInfraccion + \": _\" + descInfraccion + \"_\\n\";\n  return bloque;\n};\n\nif (comparendos.length > 0) {\n  mensaje += \"\\n🚨 *COMPARENDOS (\" + comparendos.length + \")*\\n\";\n  comparendos.forEach((c, i) => { mensaje += formatarRegistro(c, i, '🚨'); });\n}\n\nif (multas.length > 0) {\n  mensaje += \"\\n⚠️ *MULTAS (\" + multas.length + \")*\\n\";\n  multas.forEach((m, i) => { mensaje += formatarRegistro(m, i, '⚠️'); });\n}\n\nif (cursos.length > 0) {\n  mensaje += \"\\n📚 *CURSOS PENDIENTES:* \" + cursos.length + \"\\n\";\n}\n\nif (acuerdos.length > 0) {\n  mensaje += \"🤝 *ACUERDOS DE PAGO:* \" + acuerdos.length + \"\\n\";\n}\n\nmensaje += \"\\n━━━━━━━━━━━━━━━━━━\\n\";\nmensaje += \"🔍 _NullTrace OSINT Bot_\";\n\nreturn [{ json: { mensaje, chatId } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        880
+      ],
+      "id": "46374fbb-2a0f-4a28-9d66-74459dc0f904",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.mensaje }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1552,
+        880
+      ],
+      "id": "a8077df9-5f64-40d8-8a3d-f5e7a5bb3695",
+      "name": "Send a text message3",
+      "webhookId": "ed934d18-a14b-46c1-8d07-9eafe2c6d986"
+    },
+    {
+      "parameters": {
+        "url": "=http://172.18.0.1:5000/consultar/spam/{{ $('Expresiones regulares').item.json.texto }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1392,
+        -240
+      ],
+      "id": "c5f3ffca-bb2b-413d-b1c5-12895891dc6f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "url": "=http://apilayer.net/api/validate?access_key=YOUR_API_KEY&number=%2B57{{ $('Expresiones regulares').item.json.texto }}&country_code=CO&format=1",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1136,
+        -256
+      ],
+      "id": "e1b10cf3-f841-4ef6-851f-ef4c9b7cc05b",
+      "name": "Consulta telefono"
+    },
+    {
+      "parameters": {
+        "url": "=http://172.18.0.1:5000/consultar/cedula/{{ $('Expresiones regulares').item.json.texto }}",
+        "options": {
+          "timeout": 12000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1520,
+        416
+      ],
+      "id": "3f657d03-aefd-4bb8-85c0-6fb35fa991aa",
+      "name": "HTTP Request1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 2,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ruesData = $('ConsultaRues').first().json;\nconst simitRaw = $('Consulta simit').first().json;\nconst cedula = $('Expresiones regulares').first().json.texto;\nconst chatId = $('Expresiones regulares').first().json.chatId;\n\n// Detectar si el SIMIT falló completamente (Continue on fail manda {error, message})\nconst simitFallo = !simitRaw || simitRaw.error !== undefined || simitRaw.totalGeneral === undefined;\nconst ruesFallo = !ruesData || !ruesData.resultados || ruesData.total === 0;\n\nif (simitFallo && ruesFallo) {\n  return [{ json: { mensaje: \"👁️ *NULLTRACE // CÉDULA*\\n━━━━━━━━━━━━━━━━━━\\n\\n🎯 *OBJETIVO:* `\" + cedula + \"`\\n\\n⚠️ No se pudo obtener información. Intenta de nuevo en unos minutos.\\n\\n━━━━━━━━━━━━━━━━━━\\n🔍 _NullTrace OSINT Bot_\", chatId } }];\n}\n\n// --- Parsear RUES ---\nlet nombrePersona = null;\nlet categoria = 'No disponible';\nlet camara = 'No disponible';\nlet estadoPersona = 'No disponible';\nlet negocios = [];\nlet ruesEncontró = false;\n\nif (!ruesFallo) {\n  const textoRues = ruesData.resultados[0] || '';\n  const noEncontrado = textoRues.startsWith('No se encontraron resultados');\n  if (!noEncontrado) {\n    const empresas = ruesData.resultados.filter(r =>\n      !r.startsWith('Ver información') &&\n      !r.startsWith('Cerca de') &&\n      !r.startsWith('No se encontraron') &&\n      r.length > 50\n    );\n    if (empresas.length > 0) {\n      ruesEncontró = true;\n      const primera = empresas[0];\n      const lineas = primera.split('\\n').filter(l => l.trim());\n      nombrePersona = lineas[0] || null;\n      const camaraMatch = primera.match(/Cámara de Comercio\\s*\\n\\s*(.+)/);\n      const estadoMatch = primera.match(/Estado\\s*\\n\\s*(.+)/);\n      const categoriaMatch = primera.match(/Categoria\\s*\\n\\s*(.+)/);\n      camara = camaraMatch ? camaraMatch[1].trim() : 'No disponible';\n      estadoPersona = estadoMatch ? estadoMatch[1].trim() : 'No disponible';\n      categoria = categoriaMatch ? categoriaMatch[1].trim() : 'No disponible';\n      empresas.slice(1).forEach(empresa => {\n        const lineasNeg = empresa.split('\\n').filter(l => l.trim());\n        const nombreNeg = lineasNeg[0];\n        const estadoNegMatch = empresa.match(/Estado\\s*\\n\\s*(.+)/);\n        const estadoNeg = estadoNegMatch ? estadoNegMatch[1].trim() : '';\n        const emoji = estadoNeg === 'Activa' ? '🟢' : '🔴';\n        negocios.push(emoji + ' ' + nombreNeg + ' | ' + estadoNeg);\n      });\n    }\n  }\n}\n\nconst infoNegocios = negocios.length > 0 ? negocios.join('\\n') : '∅  Sin negocios registrados';\n\n// --- Mensaje ---\nlet mensaje = \"👁️ *NULLTRACE // CÉDULA*\\n\";\nmensaje += \"━━━━━━━━━━━━━━━━━━\\n\\n\";\nmensaje += \"🎯 *OBJETIVO:* `\" + cedula + \"`\\n\\n\";\n\nmensaje += \"📡 *REGISTRO MERCANTIL — RUES*\\n\";\nmensaje += \"─────────────────────\\n\";\nif (ruesEncontró && nombrePersona) {\n  mensaje += \"👤 *NOMBRE:* \" + nombrePersona.replace(/\\*/g, '').trim() + \"\\n\";\n  mensaje += \"📋 *CATEGORÍA:* \" + categoria + \"\\n\";\n  mensaje += \"🏛️ *CÁMARA:* \" + camara + \"\\n\";\n  mensaje += \"📌 *ESTADO:* \" + estadoPersona + \"\\n\";\n  if (negocios.length > 0) {\n    mensaje += \"\\n🏢 *NEGOCIOS REGISTRADOS*\\n\" + infoNegocios + \"\\n\";\n  } else {\n    mensaje += \"🏢 *NEGOCIOS:* Sin negocios registrados\\n\";\n  }\n} else {\n  mensaje += \"∅  Sin registro mercantil encontrado\\n\";\n}\n\nmensaje += \"\\n🚦 *SIMIT — ESTADO DE CUENTA*\\n\";\nmensaje += \"─────────────────────\\n\";\n\nif (simitFallo) {\n  mensaje += \"⚠️ *SIMIT:* Portal no disponible en este momento.\\n\";\n  mensaje += \"🔄 Intenta de nuevo en unos minutos o consulta la placa directamente.\\n\";\n} else {\n  const estaPazSalvo = simitRaw.pazSalvo && simitRaw.totalGeneral === 0;\n  mensaje += (estaPazSalvo ? \"✅ *PAZ Y SALVO:* SÍ\\n\" : \"❌ *PAZ Y SALVO:* NO\\n\");\n  mensaje += \"💰 *TOTAL A PAGAR:* $\" + (simitRaw.totalGeneral || 0).toLocaleString() + \"\\n\";\n\n  const multas = Array.isArray(simitRaw.multas) ? simitRaw.multas : [];\n  const comparendos = Array.isArray(simitRaw.comparendos) ? simitRaw.comparendos : [];\n\n  if (comparendos.length === 0 && multas.length === 0) {\n    mensaje += \"\\n✅ Sin comparendos ni multas activas\\n\";\n  }\n\n  const formatarRegistro = (r, i, tipo) => {\n    const nombreRaw = r.infractor ? (r.infractor.nombre + ' ' + r.infractor.apellido) : 'N/A';\n    const nombre = nombreRaw.replace(/\\*/g, '').trim();\n    const doc = r.infractor ? r.infractor.numeroDocumento : 'N/A';\n    const placa = r.placa || 'N/A';\n    const fechaComp = r.fechaComparendo || 'N/A';\n    const fechaRes = r.fechaResolucion || 'N/A';\n    const ubicacion = (r.organismoTransito || 'N/A') + ' — ' + (r.departamento || 'N/A');\n    const estadoCartera = r.estadoCartera || 'N/A';\n    const nroCoactivo = r.nroCoactivo || 'N/A';\n    const valor = (r.valor || 0).toLocaleString();\n    const intereses = Math.round(r.valorIntereses || 0).toLocaleString();\n    const total = (r.valorPagar || 0).toLocaleString();\n    const nroComparendo = r.numeroComparendo || 'N/A';\n    const codInfraccion = (r.infracciones && r.infracciones[0]) ? r.infracciones[0].codigoInfraccion : 'N/A';\n    const descInfraccion = (r.infracciones && r.infracciones[0]) ? r.infracciones[0].descripcionInfraccion : 'N/A';\n\n    let bloque = \"\\n\" + tipo + \" *\" + (i+1) + \". #\" + nroComparendo + \"*\\n\";\n    bloque += \"🚗 *PLACA:* \" + placa + \"\\n\";\n    bloque += \"👤 *INFRACTOR:* \" + nombre + \"\\n\";\n    bloque += \"🪪 *DOCUMENTO:* \" + doc + \"\\n\";\n    bloque += \"📅 *FECHA COMPARENDO:* \" + fechaComp + \"\\n\";\n    bloque += \"📋 *FECHA RESOLUCIÓN:* \" + fechaRes + \"\\n\";\n    bloque += \"📍 *UBICACIÓN:* \" + ubicacion + \"\\n\";\n    bloque += \"⚖️ *ESTADO CARTERA:* \" + estadoCartera + \"\\n\";\n    bloque += \"🔴 *NRO COACTIVO:* \" + nroCoactivo + \"\\n\";\n    bloque += \"💵 *MULTA:* $\" + valor + \"\\n\";\n    bloque += \"📈 *INTERESES:* $\" + intereses + \"\\n\";\n    bloque += \"💰 *TOTAL:* $\" + total + \"\\n\";\n    bloque += \"📌 *INFRACCIÓN:* \" + codInfraccion + \": _\" + descInfraccion + \"_\\n\";\n    return bloque;\n  };\n\n  if (comparendos.length > 0) {\n    mensaje += \"\\n🚨 *COMPARENDOS (\" + comparendos.length + \")*\\n\";\n    comparendos.forEach((c, i) => { mensaje += formatarRegistro(c, i, '🚨'); });\n  }\n\n  if (multas.length > 0) {\n    mensaje += \"\\n⚠️ *MULTAS (\" + multas.length + \")*\\n\";\n    multas.forEach((m, i) => { mensaje += formatarRegistro(m, i, '⚠️'); });\n  }\n}\n\nmensaje += \"\\n━━━━━━━━━━━━━━━━━━\\n\";\nmensaje += \"🔍 _NullTrace OSINT Bot_\";\n\nreturn [{ json: { mensaje, chatId } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        0
+      ],
+      "id": "53ede2c1-acd2-46d8-aea8-aba6d02cbf22",
+      "name": "SIMIT + RUES"
+    },
+    {
+      "parameters": {
+        "jsCode": "const mensaje = $input.first().json.message;\nconst texto = mensaje.text.trim();\nconst chatId = mensaje.chat.id;\n\nif (texto === '/start') {\n  return [{ json: { texto, chatId, tipo: 'start' } }];\n}\n\nif (texto.startsWith('/negocio ')) {\n  const nombreNegocio = texto.replace('/negocio ', '').trim();\n  return [{ json: { texto: nombreNegocio, chatId, tipo: 'negocio' } }];\n}\n\nlet tipo = '';\nlet textoLimpio = texto;\n\nif (texto.startsWith('+')) {\n  textoLimpio = texto.replace('+57', '').replace('+', '');\n  tipo = 'telefono';\n} else if (/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(texto)) {\n  tipo = 'correo';\n} else if (/^[A-Za-z]{3}\\d{3}$/.test(texto)) {\n  // placa colombiana — 3 letras y 3 números\n  tipo = 'placa';\n} else if (/^[A-Za-z]{3}\\d{2}[A-Za-z]$/.test(texto)) {\n  // placa moto colombiana — 3 letras, 2 números, 1 letra\n  tipo = 'placa';\n} else if (/^3\\d{9}$/.test(texto)) {\n  tipo = 'telefono';\n} else if (/^\\d{6,10}$/.test(texto)) {\n  tipo = 'cedula';\n} else {\n  tipo = 'desconocido';\n}\n\n// Para correo no aplicar toUpperCase\nconst textoFinal = tipo === 'correo' ? textoLimpio.toLowerCase() : textoLimpio.toUpperCase();\nreturn [{ json: { texto: textoFinal, chatId, tipo } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "960a80c6-26e7-4cbc-961c-980292eadd5b",
+      "name": "Expresiones regulares"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst chatId = $('Expresiones regulares').first().json.chatId;\nconst correo = $('Expresiones regulares').first().json.texto;\n\n// URLs base conocidas para los sitios más comunes\nconst urlsConocidas = {\n  twitter:    \"https://twitter.com/search?q=\",\n  instagram:  \"https://www.instagram.com/\",\n  github:     \"https://github.com/search?q=\",\n  facebook:   \"https://www.facebook.com/search/top?q=\",\n  spotify:    \"https://open.spotify.com/search/\",\n  patreon:    \"https://www.patreon.com/search?q=\",\n  tumblr:     \"https://www.tumblr.com/search/\",\n  flickr:     \"https://www.flickr.com/search/?text=\",\n  lastfm:     \"https://www.last.fm/search?q=\",\n  pinterest:  \"https://www.pinterest.com/search/pins/?q=\",\n  wordpress:  \"https://en.search.wordpress.com/?q=\",\n  devrant:    \"https://devrant.com/search?term=\",\n  quora:      \"https://www.quora.com/search?q=\",\n  strava:     \"https://www.strava.com/athletes/search?text=\",\n  adobe:      \"https://adobe.com\",\n  zoho:       \"https://zoho.com\",\n  freelancer: \"https://www.freelancer.com/search/users/?q=\",\n  linkedin:   \"https://www.linkedin.com/search/results/all/?keywords=\",\n  vsco:       \"https://vsco.co/search/images/\",\n  issuu:      \"https://issuu.com/search#q=\",\n  xing:       \"https://www.xing.com/search/members?q=\",\n};\n\nconst fallo = !data || data.total_encontrados === undefined;\n\nif (fallo) {\n  return [{ json: { \n    mensaje: \"👁️ *NULLTRACE // EMAIL*\\n━━━━━━━━━━━━━━━━━━\\n\\n🎯 *OBJETIVO:* `\" + correo + \"`\\n\\n⚠️ No se pudo consultar. Intenta de nuevo.\\n\\n━━━━━━━━━━━━━━━━━━\\n🔍 _NullTrace OSINT Bot_\", \n    chatId \n  }}];\n}\n\nconst encontrados = data.registrado_en || [];\nconst rateLimited = data.rate_limited || [];\n\n// Construir lista de plataformas con link de búsqueda si está disponible\nlet listaPlataformas = '';\nif (encontrados.length === 0) {\n  listaPlataformas = '∅  No se encontró registro en ninguna plataforma\\n';\n} else {\n  encontrados.forEach(nombre => {\n    const baseUrl = urlsConocidas[nombre.toLowerCase()];\n    if (baseUrl) {\n      const url = baseUrl + encodeURIComponent(correo);\n      listaPlataformas += `🔗 [${nombre}](${url})\\n`;\n    } else {\n      listaPlataformas += `✅ ${nombre}\\n`;\n    }\n  });\n}\n\nlet mensaje = \"👁️ *NULLTRACE // EMAIL*\\n\";\nmensaje += \"━━━━━━━━━━━━━━━━━━\\n\\n\";\nmensaje += \"🎯 *OBJETIVO:* `\" + correo + \"`\\n\\n\";\n\nmensaje += \"📡 *PLATAFORMAS DETECTADAS*\\n\";\nmensaje += \"─────────────────────\\n\";\nmensaje += \"📊 *Consultados:* ~121 sitios\\n\";\nmensaje += \"✅ *Registrado en:* \" + encontrados.length + \" plataformas\\n\";\nmensaje += \"⚠️ *Sin respuesta:* \" + rateLimited.length + \" sitios\\n\\n\";\n\nif (encontrados.length > 0) {\n  mensaje += \"🌐 *CUENTAS ENCONTRADAS*\\n\";\n  mensaje += listaPlataformas + \"\\n\";\n  mensaje += \"_⚠️ Los links llevan a búsquedas, no al perfil directo._\\n\";\n}\n\nmensaje += \"\\n━━━━━━━━━━━━━━━━━━\\n\";\nmensaje += \"🔍 _NullTrace OSINT Bot_\";\n\nreturn [{ json: { mensaje, chatId } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        -544
+      ],
+      "id": "040afee7-3d67-480f-80cc-c0f5d1d8d062",
+      "name": "Code in JavaScript",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Expresiones regulares').item.json.chatId }}",
+        "text": "={{ $('Code in JavaScript').item.json.mensaje }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1184,
+        -544
+      ],
+      "id": "7732f3f6-440a-4885-9ac1-3085b9ffa9d7",
+      "name": "Send a text message4",
+      "webhookId": "e049b88b-e991-4216-9275-3a87af9de8e1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Expresiones regulares",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Consulta Correo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram espera1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram espera",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respuesta a desconocido",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensaje start",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram espera2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram espera3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consulta Correo": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consulta simit": {
+      "main": [
+        [
+          {
+            "node": "SIMIT + RUES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram espera": {
+      "main": [
+        [
+          {
+            "node": "ConsultaRues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram espera1": {
+      "main": [
+        [
+          {
+            "node": "Consulta telefono",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ConsultaRues": {
+      "main": [
+        [
+          {
+            "node": "Consulta simit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respuesta a desconocido": {
+      "main": [
+        []
+      ]
+    },
+    "Telegram espera2": {
+      "main": [
+        [
+          {
+            "node": "Consulta Negocio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consulta Negocio": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram espera3": {
+      "main": [
+        [
+          {
+            "node": "Consulta simit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consulta simit1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consulta telefono": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        []
+      ]
+    },
+    "SIMIT + RUES": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Expresiones regulares": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "99131a7a-1e76-49b5-b00d-789fe01eaaf6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "49b05e540453844c8a23501466f4a949b2eda871c6b8a6974a0cf770222089f9"
+  },
+  "id": "7GbS7Cx1LTS0KfxS",
+  "tags": []
+}

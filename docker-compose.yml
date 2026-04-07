@@ -1,0 +1,22 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: mi-n8n
+    ports:
+      - "5679:5678"
+    environment:
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PROTOCOL=https
+      - N8N_PORT=5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  microservicio:
+    build: ./microservicio
+    container_name: nulltrace-scraper
+    ports:
+      - "5000:5000"
+
+volumes:
+  n8n_data:

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+playwright
+beautifulsoup4
+requests
+pytesseract
+Pillow
+holehe
+httpx
